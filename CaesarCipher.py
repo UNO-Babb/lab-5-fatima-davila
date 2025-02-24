@@ -19,8 +19,18 @@ def encode(message, key):
     return secret
 
 def decode(message, key):
-    #We will want to decode the message here.
-    return "NOPE"
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    message = message.upper()
+    tacos = ""
+
+    for letter in message:
+        if (alpha.find(letter) >= 0): #check to see if the letter is actually a letter
+            spot = (alpha.find(letter) - key) % 26
+            tacos = tacos + alpha[spot]
+        else: # letter must have been a number, symbol, or punctuation.
+            tacos = tacos + letter
+#We will want to decode the message here.
+    return tacos
 
 def main():
     message = input("Enter a message: ")
@@ -28,8 +38,8 @@ def main():
 
     secret = encode(message, key)
     print ("Encrypted:", secret)
-    plaintext = decode(secret, key)
-    print ("Decrypted:", plaintext)
+    tacos = decode(secret, key)
+    print ("Decrypted:", tacos)
 
 
 if __name__ == '__main__':
